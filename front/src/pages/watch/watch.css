@@ -1,0 +1,37 @@
+.watch {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.watch__infos {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 20;
+}
+.watch--link {
+  display: flex;
+  align-items: center;
+  color: rgb(180, 180, 180);
+  transition: var(--transition);
+}
+.watch--link:hover {
+  color: var(--white);
+}
+
+.watch--icon {
+  font-size: 30px;
+}
+
+.watch--title {
+  width: 80%;
+  font-size: 1.8rem;
+}
+
+.watch--video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

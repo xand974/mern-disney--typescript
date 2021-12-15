@@ -1,0 +1,40 @@
+:root {
+  --dark-purple: #07080b;
+  --light-purple: #1a1c29;
+  --black: #000;
+  --light-gray: rgb(170, 170, 170);
+  --card-width: 17vw;
+  --card-height: 10vw;
+  --white: #fff;
+  --shadow-sm: 0 0 7px 0 rgba(0, 0, 0, 0.3) !important;
+  --shadow-lg: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
+    rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+  --gradient-black: linear-gradient(
+    0deg,
+    rgba(26, 28, 41, 1) 71%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  --gradient-gray: linear-gradient(rgb(58, 60, 74), rgb(36, 38, 50));
+
+  --gradient-purple: linear-gradient(rgb(48, 50, 62), rgb(30, 31, 42));
+  --radius-sm: 10px;
+  --radius-lg: 20px;
+  --nav-height: 72px;
+  --main-width: 80%;
+  --margin-center: 0 auto;
+  --transition: all 0.3s ease-in;
+}
+
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}

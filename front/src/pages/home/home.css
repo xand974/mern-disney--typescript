@@ -1,0 +1,13 @@
+.home {
+  min-height: 100vh;
+  /* background: var(--light-purple); */
+  background: var(--light-purple);
+  background: var(--gradient-black);
+  overflow: hidden;
+}
+.home__wrapper {
+  width: 90%;
+  margin: auto;
+  padding-top: 100px;
+  position: relative;
+}

@@ -1,0 +1,155 @@
+.movie {
+  flex: 4;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+      font-size: 40px;
+    }
+    a {
+      text-decoration: none;
+      color: white;
+      padding: 10px 30px;
+      background: rgb(24, 24, 104);
+      border-radius: 10px;
+      li {
+        list-style: none;
+        font-size: 20px;
+      }
+    }
+  }
+  .wrapper {
+    display: flex;
+    .description {
+      flex: 1;
+      margin-right: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.288);
+      padding: 20px;
+      .img {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        img {
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-right: 20px;
+        }
+        span {
+          font-weight: bold;
+          font-size: 25px;
+        }
+      }
+      .infos {
+        .item {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          justify-content: space-between;
+          margin-bottom: 10px;
+          .infoItem {
+            font-weight: bold;
+            margin-right: 30%;
+          }
+          .infoData {
+            color: gray;
+            &.synopsis {
+              text-align: right;
+            }
+            &.trailer {
+              overflow: scroll;
+            }
+          }
+        }
+      }
+    }
+    .edit {
+      padding: 20px;
+      height: 31rem;
+      overflow-y: hidden;
+      flex: 2;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.288);
+      h3 {
+        font-size: 30px;
+      }
+      .wrapper {
+        display: flex;
+
+        .left {
+          flex: 1;
+          form {
+            display: flex;
+            flex-direction: column;
+
+            label {
+              font-weight: bold;
+              margin: 15px 0;
+              font-size: 18px;
+              color: rgb(85, 85, 85);
+            }
+            input {
+              outline: none;
+              background: none;
+              border: none;
+              border-bottom: 1px solid black;
+              width: 100%;
+              font-size: 18px;
+            }
+            ::placeholder {
+              font-size: 16px;
+              margin-bottom: 10px;
+            }
+          }
+        }
+        .right {
+          position: relative;
+          flex: 2;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: right;
+          .img {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            img {
+              width: 200px;
+              height: 200px;
+              border-radius: 20%;
+              object-fit: cover;
+              margin-right: 20px;
+            }
+            .thumbnail {
+              .icon {
+                font-size: 40px;
+                cursor: pointer;
+                transition: all 0.1s ease-in-out;
+                &:hover {
+                  color: crimson;
+                }
+              }
+            }
+            input {
+              opacity: 0;
+              pointer-events: none;
+            }
+          }
+          .btn__update {
+            position: absolute;
+            left: 35%;
+            padding: 10px 40px;
+            bottom: 0;
+            background-color: rgb(6, 0, 61);
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

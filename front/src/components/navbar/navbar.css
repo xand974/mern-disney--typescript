@@ -1,0 +1,74 @@
+.nav {
+  height: var(--nav-height);
+  width: 100%;
+  position: fixed;
+  color: var(--white);
+  z-index: 20;
+  transition: var(--transition);
+}
+
+.nav__wrapper,
+.nav__left,
+.nav__profile,
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+.nav__wrapper {
+  width: 95%;
+  height: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+/**NAV LEFT**/
+
+.nav--title {
+  margin-right: 30px;
+  cursor: pointer;
+}
+.nav--title-img {
+  width: 80px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.nav--link {
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.nav--link::before {
+  position: absolute;
+  content: "";
+  width: 0%;
+  height: 1px;
+  background: var(--white);
+  bottom: 0;
+  transition: var(--transition);
+}
+.nav--link:hover::before {
+  width: 100%;
+}
+
+.nav--icon {
+  margin-right: 10px;
+  font-size: 10px;
+}
+
+/**NAV RIGHT**/
+
+.nav__profile-text {
+  margin-right: 10px;
+  font-weight: 300;
+}
+
+.nav__profile-img-container {
+  cursor: pointer;
+}

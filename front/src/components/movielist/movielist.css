@@ -1,0 +1,41 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  position: relative;
+}
+.list--title {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: white;
+}
+
+.list__container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  transition: var(--transition);
+}
+.list__arrow {
+  position: absolute;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.list-left {
+  left: -40px;
+}
+.list-right {
+  right: -40px;
+}
+.list--icon {
+  color: var(--light-gray);
+}
+
+.list__container > a:not(:first-child) {
+  margin: 0 10px;
+}
+.list__container > a:first-child {
+  margin-right: 10px;
+}

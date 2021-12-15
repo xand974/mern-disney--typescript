@@ -1,0 +1,33 @@
+.item {
+  width: var(--card-width);
+  height: var(--card-height);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+  transition: var(--transition);
+}
+
+.item--image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item:hover {
+  transform: scale(1.1);
+}
+
+.item::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 6px solid white;
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.item:hover::before {
+  opacity: 1;
+}
