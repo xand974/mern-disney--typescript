@@ -6,12 +6,20 @@ type StateType = {
 };
 
 type UserType = {
-  _id: number;
+  _id: string;
+  username: string;
+  email: string;
+  fullName?: string;
+  isAdmin: boolean;
+  isSubscribed: boolean;
 };
+
+const userToken = localStorage.getItem("user");
+const persistedToken = userToken ? JSON.parse(userToken) : {};
 
 const initialState: StateType = {
   pending: false,
-  currentUser: null,
+  currentUser: null || persistedToken,
   error: false,
 };
 

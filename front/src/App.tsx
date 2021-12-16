@@ -9,12 +9,13 @@ import {
 import Login from "./pages/log/Login";
 import Register from "./pages/log/Register";
 import PrivateRoutes from "./components/privateRoutes/PrivateRoutes";
-import { useState } from "react";
 import Movie from "./pages/movie/Movie";
 import Watch from "./pages/watch/Watch";
-
+import { RootState } from "./context/store";
+import { useAppSelector } from "./hooks/selector";
 function App() {
-  const [isAuth, setIsAuth] = useState(false);
+  const { currentUser } = useAppSelector((state: RootState) => state.user);
+
   return (
     <div className="App">
       <Router>
@@ -30,11 +31,11 @@ function App() {
           />
           <Route
             path="/login"
-            element={isAuth ? <Navigate to="/" /> : <Login />}
+            element={currentUser ? <Navigate to="/" /> : <Login />}
           />
           <Route
             path="/register"
-            element={isAuth ? <Navigate to="/" /> : <Register />}
+            element={currentUser ? <Navigate to="/" /> : <Register />}
           />
         </Routes>
       </Router>
