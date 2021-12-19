@@ -127,4 +127,14 @@ router.get("/search", checkToken, async (req: Request, res: Response) => {
   }
 });
 
+//get 4 random movies
+router.get("/slider", async (req: Request, res: Response): Promise<void> => {
+  try {
+    const movies = await Movie.aggregate([{ $sample: { $size: 4 } }]);
+    res.status(200).json(movies);
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+});
+
 export default router;

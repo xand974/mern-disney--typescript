@@ -1,8 +1,32 @@
 import "./log.css";
 import { LoginOutlined } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { CredentialType, login } from "../../api/auth";
+import { useAppDispatch, useAppSelector } from "../../hooks/selector";
+import { RootState } from "../../context/store";
 
 export default function Login() {
+  const [credential, setCredential] = useState({} as CredentialType);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { error, pending } = useAppSelector((state: RootState) => state.user);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setCredential((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleClick = () => {
+    login(credential, dispatch, navigate);
+  };
+
   return (
     <div className="log log--login">
       <div className="card__container">
@@ -19,6 +43,8 @@ export default function Login() {
                 type="text"
                 className="card__form--input"
                 name="username"
+                onChange={handleChange}
+                required
               />
             </div>
             <div className="card__form">
@@ -29,15 +55,22 @@ export default function Login() {
                 type="password"
                 className="card__form--input"
                 name="password"
+                onChange={handleChange}
+                required
               />
             </div>
             <div className="card__form">
-              <button className="card__form--btn">
-                <span className="card__form--btn-text">SE CONNECTER</span>
-                <LoginOutlined className="card__form--icon" />
-              </button>
+              {pending ? (
+                <span>Veuillez Patienter</span>
+              ) : (
+                <button className="card__form--btn" onClick={handleClick}>
+                  <span className="card__form--btn-text">SE CONNECTER</span>
+                  <LoginOutlined className="card__form--icon" />
+                </button>
+              )}
             </div>
           </form>
+          {error && <span>Mauvais identifiant ou mot de passe</span>}
         </div>
         <div className="card__footer">
           <span>Vous n'avez pas encore de compte ? </span>

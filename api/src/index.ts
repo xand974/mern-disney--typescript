@@ -9,7 +9,6 @@ import morgan from "morgan";
 import authRouter from "./routers/Auth";
 import moviesRouter from "./routers/Movies";
 import listsRouter from "./routers/Lists";
-import { checkToken } from "./middlewares/verify";
 
 const app: Application = express();
 const port = 5050 || process.env.PORT;

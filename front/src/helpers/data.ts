@@ -2,7 +2,6 @@ type SliderItemType = {
   id: number;
   photoURL: string;
 };
-
 type CatType = { id: number; photoURL: string; link: string };
 export type MovieType = CatType;
 type FooterType = {

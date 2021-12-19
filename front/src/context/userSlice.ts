@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type StateType = {
   pending: boolean;
-  currentUser: null | UserType;
+  currentUser: UserType;
   error: boolean;
 };
 
@@ -15,7 +15,7 @@ type UserType = {
 };
 
 const userToken = localStorage.getItem("user");
-const persistedToken = userToken ? JSON.parse(userToken) : {};
+const persistedToken = userToken ? JSON.parse(userToken) : null;
 
 const initialState: StateType = {
   pending: false,
@@ -32,6 +32,7 @@ export const userSlice = createSlice({
     },
     loginSuccess: (state, action: PayloadAction<UserType>) => {
       state.currentUser = action.payload;
+      state.pending = false;
     },
     loginFailure: (state) => {
       state.pending = false;
