@@ -1,17 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+type UserType = {
+  accessToken: string;
+};
 type StateType = {
   pending: boolean;
-  currentUser: UserType;
+  currentUser: null | UserType;
   error: boolean;
-};
-
-type UserType = {
-  _id: string;
-  username: string;
-  email: string;
-  fullName?: string;
-  isAdmin: boolean;
-  isSubscribed: boolean;
 };
 
 const userToken = localStorage.getItem("user");
@@ -38,8 +32,12 @@ export const userSlice = createSlice({
       state.pending = false;
       state.error = true;
     },
+    logoutUser: (state) => {
+      state.currentUser = null;
+    },
   },
 });
 
 export default userSlice.reducer;
-export const { loginFailure, loginStart, loginSuccess } = userSlice.actions;
+export const { loginFailure, loginStart, loginSuccess, logoutUser } =
+  userSlice.actions;

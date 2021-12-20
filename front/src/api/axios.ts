@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const userToken = localStorage.getItem("user");
-const TOKEN = userToken ? JSON.parse(userToken)?.accessToken : {};
+const TOKEN = userToken ? JSON.parse(userToken)?.accessToken : null;
 
 export const publicRequest = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,

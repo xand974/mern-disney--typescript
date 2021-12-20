@@ -1,7 +1,12 @@
 import { publicRequest } from "./axios";
 import { AppDispatch } from "../context/store";
 
-import { loginFailure, loginStart, loginSuccess } from "../context/userSlice";
+import {
+  loginFailure,
+  loginStart,
+  loginSuccess,
+  logoutUser,
+} from "../context/userSlice";
 export type CredentialType = {
   username: string;
   password: string;
@@ -13,7 +18,9 @@ export const login = async (
   navigate: any
 ): Promise<void> => {
   dispatch(loginStart());
+  console.log("start");
   try {
+    console.log("doing");
     const res = await publicRequest.post("/auth/login", credential);
     dispatch(loginSuccess(res.data));
     localStorage.setItem("user", JSON.stringify(res.data));
@@ -33,4 +40,10 @@ export const register = async (
   } catch (error) {
     console.log(error);
   }
+};
+
+export const logout = async (dispatch: AppDispatch) => {
+  localStorage.clear();
+  dispatch(logoutUser());
+  window.location.reload();
 };

@@ -12,9 +12,34 @@ import PrivateRoutes from "./components/privateRoutes/PrivateRoutes";
 import Movie from "./pages/movie/Movie";
 import Watch from "./pages/watch/Watch";
 import { RootState } from "./context/store";
-import { useAppSelector } from "./hooks/selector";
+import { useAppSelector, useAppDispatch } from "./hooks/selector";
+import { useEffect } from "react";
+import jwt from "jwt-decode";
+import { useState } from "react";
+import { logout } from "./api/auth";
+import Loading from "./components/loading/Loading";
+type TokenType = {
+  exp: number;
+};
 function App() {
   const { currentUser } = useAppSelector((state: RootState) => state.user);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (currentUser) {
+      const token: TokenType = jwt(currentUser.accessToken);
+      if (token.exp * 1000 < Date.now()) {
+        logout(dispatch);
+        setLoading(true);
+      } else {
+        setLoading(true);
+      }
+    }
+  }, [currentUser, dispatch]);
+
+  if (!loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="App">

@@ -9,8 +9,6 @@ export default function Slider() {
   const container = useRef<HTMLDivElement>(null);
   const handleClick = (value: string) => {
     if (value === "left") {
-      console.log("yes");
-
       setSliderIndex(sliderIndex > 0 ? sliderIndex - 1 : sliderItem.length - 1);
       if (container.current !== null) {
         container.current.style.transform = `translateX(${
@@ -18,7 +16,6 @@ export default function Slider() {
         }vw)`;
       }
     } else if (value === "right") {
-      console.log("yes");
       setSliderIndex(sliderIndex < sliderItem.length - 1 ? sliderIndex + 1 : 0);
       if (container.current !== null) {
         container.current.style.transform = `translateX(calc(${
