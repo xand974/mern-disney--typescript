@@ -1,12 +1,16 @@
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import "./slider.css";
-import { sliderItem } from "../../helpers/data";
 import { useState } from "react";
 import { useRef } from "react";
+import { useEffect } from "react";
+import { getSliderItem } from "../../api/movie";
+import { MovieType } from "../../context/movieSlice";
+import { Link } from "react-router-dom";
 
 export default function Slider() {
   const [sliderIndex, setSliderIndex] = useState<number>(1);
   const container = useRef<HTMLDivElement>(null);
+  const [sliderItem, setSliderItem] = useState([] as MovieType[]);
   const handleClick = (value: string) => {
     if (value === "left") {
       setSliderIndex(sliderIndex > 0 ? sliderIndex - 1 : sliderItem.length - 1);
@@ -24,6 +28,11 @@ export default function Slider() {
       }
     }
   };
+
+  useEffect(() => {
+    getSliderItem(setSliderItem);
+  }, []);
+
   return (
     <div className="slider">
       <div className="slider__left">
@@ -38,13 +47,15 @@ export default function Slider() {
       </div>
       <div className="slider__parent" ref={container}>
         {sliderItem.map((item, key) => (
-          <div className="slider__container" key={key}>
-            <img
-              src={item.photoURL}
-              className="slider-img slider-img-active"
-              alt=""
-            />
-          </div>
+          <Link to={`/movie/${item._id}`} key={key}>
+            <div className="slider__container">
+              <img
+                src={item.thumbnail}
+                className="slider-img slider-img-active"
+                alt=""
+              />
+            </div>
+          </Link>
         ))}
       </div>
       <div className="slider__right">

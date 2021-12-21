@@ -1,18 +1,18 @@
 import "./itemlist.css";
-import { MovieType } from "../../helpers/data";
+
 import { Link } from "react-router-dom";
+import { MovieType } from "../../context/movieSlice";
 
 type ItemListType = {
-  id: number;
   item: MovieType;
 };
 
-export default function ItemList({ id, item }: ItemListType) {
+export default function ItemList({ item }: ItemListType) {
   return (
-    <Link to={item.link}>
+    <Link to={`/movie/${item._id}`}>
       <div className="item">
         <img
-          src={item.photoURL}
+          src={item.thumbnail}
           alt="movie thumbnail"
           className="item--image"
         />

@@ -2,7 +2,6 @@ import Movie from "../models/movie";
 import { Router } from "express";
 import { Request, Response } from "express";
 import { checkToken, checkAdmin } from "../middlewares/verify";
-import { MovieInterface } from "../interfaces/movie-interface";
 const router = Router();
 
 //ADD
@@ -68,12 +67,12 @@ router.get(
       if (type === "series") {
         movie = await Movie.aggregate([
           { $match: { isSeries: true } },
-          { $sample: { $size: 1 } },
+          { $sample: { size: 1 } },
         ]);
       } else {
         movie = await Movie.aggregate([
           { $match: { isSeries: false } },
-          { $sample: { $size: 1 } },
+          { $sample: { size: 1 } },
         ]);
       }
       res.status(200).json(movie);
@@ -128,9 +127,23 @@ router.get("/search", checkToken, async (req: Request, res: Response) => {
 });
 
 //get 4 random movies
-router.get("/slider", async (req: Request, res: Response): Promise<void> => {
+router.get(
+  "/slider",
+  checkToken,
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const movies = await Movie.aggregate([{ $sample: { size: 4 } }]);
+      res.status(200).json(movies);
+    } catch (error) {
+      res.status(500).json({ message: error });
+    }
+  }
+);
+
+router.get("/cat", checkToken, async (req: Request, res: Response) => {
   try {
-    const movies = await Movie.aggregate([{ $sample: { $size: 4 } }]);
+    const catQuery = req.query.cat__query;
+    const movies = await Movie.find({ category: catQuery });
     res.status(200).json(movies);
   } catch (error) {
     res.status(500).json({ message: error });

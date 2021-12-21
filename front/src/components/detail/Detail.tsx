@@ -43,7 +43,7 @@ export default function Detail() {
       </article>
       <div className="content__footer">
         <p className="content__footer-text">Suggestions</p>
-        <MovieList isInDetailPage={false} />
+        {/* <MovieList isInDetailPage={false} /> */}
       </div>
     </main>
   );

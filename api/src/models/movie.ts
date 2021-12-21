@@ -39,6 +39,9 @@ const movieSchema = new Schema(
     duration: {
       type: Number,
     },
+    category: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

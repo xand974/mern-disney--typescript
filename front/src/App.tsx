@@ -47,7 +47,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PrivateRoutes component={Home} />} />
           <Route
-            path="/movies/:id"
+            path="/movie/:id"
             element={<PrivateRoutes component={Movie} />}
           />
           <Route

@@ -1,21 +1,28 @@
 import ItemList from "../itemlist/ItemList";
 import "./movielist.css";
-import { movieListItems } from "../../helpers/data";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { useRef, useState } from "react";
+import { ListType } from "../../context/listSlice";
+import { MovieType } from "../../context/movieSlice";
+import { useEffect } from "react";
+import { getMovie } from "../../api/movie";
 
 type MovieListType = {
   isInDetailPage: boolean;
+  item: ListType;
 };
 
-export default function MovieList({ isInDetailPage = true }: MovieListType) {
+export default function MovieList({
+  isInDetailPage = true,
+  item,
+}: MovieListType) {
   const [sliderIndex, setSliderIndex] = useState<number>(1);
-
+  const [movieItem, setMovieItem] = useState([] as MovieType[]);
   const container = useRef<HTMLDivElement>(null);
   const handleClick = (value: string) => {
     if (value === "left") {
       setSliderIndex(
-        sliderIndex > 0 ? sliderIndex - 1 : movieListItems.length - 5
+        sliderIndex > 0 ? sliderIndex - 1 : item.content.length - 5
       );
       if (container.current !== null) {
         container.current.style.transform = `translateX(${
@@ -24,7 +31,7 @@ export default function MovieList({ isInDetailPage = true }: MovieListType) {
       }
     } else if (value === "right") {
       setSliderIndex(
-        sliderIndex < movieListItems.length - 5 ? sliderIndex + 1 : 0
+        sliderIndex < item.content.length - 5 ? sliderIndex + 1 : 0
       );
       if (container.current !== null) {
         container.current.style.transform = `translateX(calc(${
@@ -33,17 +40,22 @@ export default function MovieList({ isInDetailPage = true }: MovieListType) {
       }
     }
   };
+
+  useEffect(() => {
+    getMovie(item.content, setMovieItem);
+  }, [item]);
+
   return (
     <div className="list">
-      {isInDetailPage && <h1 className="list--title">Nouveau sur Disney +</h1>}
+      {isInDetailPage && <h1 className="list--title">{item.title}</h1>}
       <div className="list__arrow list-left">
         <button onClick={() => handleClick("left")} className="list--btn">
           <ArrowBackIos className="list--icon" fontSize="large" />
         </button>
       </div>
       <div className="list__container" ref={container}>
-        {movieListItems.map((item) => (
-          <ItemList key={item.id} id={item.id} item={item} />
+        {movieItem.map((item) => (
+          <ItemList key={item._id} item={item} />
         ))}
       </div>
       <div className="list__arrow list-right">

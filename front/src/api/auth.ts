@@ -18,9 +18,7 @@ export const login = async (
   navigate: any
 ): Promise<void> => {
   dispatch(loginStart());
-  console.log("start");
   try {
-    console.log("doing");
     const res = await publicRequest.post("/auth/login", credential);
     dispatch(loginSuccess(res.data));
     localStorage.setItem("user", JSON.stringify(res.data));
