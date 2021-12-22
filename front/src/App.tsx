@@ -18,11 +18,13 @@ import jwt from "jwt-decode";
 import { useState } from "react";
 import { logout } from "./api/auth";
 import Loading from "./components/loading/Loading";
+import CatPage from "./pages/catpage/CatPage";
 type TokenType = {
   exp: number;
 };
 function App() {
   const { currentUser } = useAppSelector((state: RootState) => state.user);
+
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -34,6 +36,8 @@ function App() {
       } else {
         setLoading(true);
       }
+    } else {
+      setLoading(true);
     }
   }, [currentUser, dispatch]);
 
@@ -54,6 +58,7 @@ function App() {
             path="/watch/:id"
             element={<PrivateRoutes component={Watch} />}
           />
+          <Route path="/cat" element={<PrivateRoutes component={CatPage} />} />
           <Route
             path="/login"
             element={currentUser ? <Navigate to="/" /> : <Login />}

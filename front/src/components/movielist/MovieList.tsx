@@ -42,7 +42,7 @@ export default function MovieList({
   };
 
   useEffect(() => {
-    getMovie(item.content, setMovieItem);
+    getMovie(item.content, setMovieItem, null);
   }, [item]);
 
   return (

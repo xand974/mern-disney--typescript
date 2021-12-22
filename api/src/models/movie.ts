@@ -16,6 +16,9 @@ const movieSchema = new Schema(
     thumbnail: {
       type: String,
     },
+    bigPicture: {
+      type: String,
+    },
     videoURL: {
       type: String,
       min: 4,

@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 export default function AddMovie() {
   const [movie, setMovie] = useState({});
   const [thumbnail, setThumbnail] = useState(null);
+  const [bigPicture, setBigPicture] = useState(null);
   const [trailer, setTrailer] = useState(null);
   const [video, setVideo] = useState(null);
   const [uploaded, setUploaded] = useState(0);
@@ -59,6 +60,7 @@ export default function AddMovie() {
       { file: thumbnail, label: "thumbnail" },
       { file: trailer, label: "trailer" },
       { file: video, label: "videoURL" },
+      { file: bigPicture, label: "bigPicture" },
     ]);
   };
   const HandleClick = () => {
@@ -76,6 +78,15 @@ export default function AddMovie() {
             name="thumbnail"
             id="thumbnail"
             onChange={(e) => setThumbnail(e.target.files[0])}
+          />
+        </div>
+        <div className="data">
+          <label htmlFor="bigPicture">Big Picture</label>
+          <input
+            type="file"
+            name="bigPicture"
+            id="bigPicture"
+            onChange={(e) => setBigPicture(e.target.files[0])}
           />
         </div>
         <div className="data">
@@ -153,12 +164,23 @@ export default function AddMovie() {
           <label htmlFor="genre">Genre</label>
           <select name="genre" onChange={HandleChange} id="genre">
             <option value="">Selectionner un genre</option>
-            <option></option>
             <option value="Horror">Horror</option>
             <option value="fantasy">Fantasy</option>
             <option value="Suspense">Suspense</option>
             <option value="Comedy">Comedy</option>
             <option value="Adventure">Adventure</option>
+          </select>
+        </div>
+        <div className="data">
+          <label htmlFor="cat">Genre</label>
+          <select name="category" onChange={HandleChange} id="cat">
+            <option value="">Selectionner une catégorie</option>
+            <option value="disney">Disney</option>
+            <option value="pixar">Pixar</option>
+            <option value="marvel">Marvel</option>
+            <option value="ng">National Geographic</option>
+            <option value="starwars">Star Wars</option>
+            <option value="star">Star</option>
           </select>
         </div>
         <div className="data">
@@ -170,7 +192,7 @@ export default function AddMovie() {
           </select>
         </div>
         <div className="data">
-          {uploaded === 3 ? (
+          {uploaded === 4 ? (
             <button onClick={HandleClick}>Create</button>
           ) : (
             <button onClick={handleUpload}>Upload</button>

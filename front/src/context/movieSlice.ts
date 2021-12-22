@@ -13,6 +13,7 @@ export type MovieType = {
   year: number;
   title: string;
   type: string;
+  bigPicture: string;
 };
 
 type InitialStateList = {

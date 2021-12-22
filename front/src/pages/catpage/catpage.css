@@ -1,0 +1,20 @@
+.home__wrapper__cat {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 72px - 108px);
+}
+
+.home__wrapper__cat--title {
+  font-size: 2rem;
+  color: var(--white);
+}
+.home__wrapper__cat__items {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.home__wrapper__cat__items > a {
+  margin-bottom: 20px;
+}

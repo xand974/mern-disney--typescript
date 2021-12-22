@@ -1,9 +1,11 @@
+import { MovieType } from "../context/movieSlice";
+
 type SliderItemType = {
   id: number;
   photoURL: string;
 };
 type CatType = { id: number; photoURL: string; link: string };
-export type MovieType = CatType;
+
 type FooterType = {
   id: number;
   link: string;
@@ -37,101 +39,211 @@ export const catItems: CatType[] = [
   {
     id: 1,
     photoURL: process.env.PUBLIC_URL + "/assets/DisneyLogo.png",
-    link: "/yes",
+    link: "/cat?cat__query=disney",
   },
   {
     id: 2,
     photoURL: process.env.PUBLIC_URL + "/assets/MarvelLogo.png",
-    link: "/yes",
+    link: "/cat?cat__query=marvel",
   },
   {
     id: 3,
     photoURL: process.env.PUBLIC_URL + "/assets/NGLogo.png",
-    link: "/yes",
+    link: "//cat?cat__query=ng",
   },
   {
     id: 4,
     photoURL: process.env.PUBLIC_URL + "/assets/PixarLogo.png",
-    link: "/yes",
+    link: "/cat?cat__query=pixar",
   },
   {
     id: 5,
     photoURL: process.env.PUBLIC_URL + "/assets/StarWarsLogo.png",
-    link: "/yes",
+    link: "/cat?cat__query=starwars",
   },
   {
     id: 6,
     photoURL: process.env.PUBLIC_URL + "/assets/StarLogo.png",
-    link: "/yes",
+    link: "/cat?cat__query=star",
   },
 ];
 
 export const movieListItems: MovieType[] = [
   {
-    id: 1,
-    photoURL:
+    _id: "1",
+    thumbnail:
       "https://images.unsplash.com/photo-1639290829571-f72eedf46efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    link: "/movies/12",
+    desc: "",
+    videoURL: "",
+    isSeries: false,
+    ageLimit: 10,
+    genre: ["fantasy"],
+    category: "disney",
+    duration: 190,
+    year: 2000,
+    title: "OUAIS",
+    type: "film",
+    bigPicture: "",
   },
   {
-    id: 2,
-    photoURL:
+    _id: "2",
+    thumbnail:
       "https://images.unsplash.com/photo-1639290829571-f72eedf46efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    link: "/movies/14",
+    desc: "",
+    videoURL: "",
+    isSeries: false,
+    ageLimit: 10,
+    genre: ["fantasy"],
+    category: "disney",
+    duration: 190,
+    year: 2000,
+    title: "OUAIS",
+    type: "film",
+    bigPicture: "",
   },
   {
-    id: 3,
-    photoURL:
+    _id: "3",
+    thumbnail:
       "https://images.unsplash.com/photo-1639290829571-f72eedf46efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    link: "/movies/15",
+    desc: "",
+    videoURL: "",
+    isSeries: false,
+    ageLimit: 10,
+    genre: ["fantasy"],
+    category: "disney",
+    duration: 190,
+    year: 2000,
+    title: "OUAIS",
+    type: "film",
+    bigPicture: "",
   },
   {
-    id: 4,
-    photoURL:
+    _id: "4",
+    thumbnail:
       "https://images.unsplash.com/photo-1639290829571-f72eedf46efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    link: "/movies/19",
+    desc: "",
+    videoURL: "",
+    isSeries: false,
+    ageLimit: 10,
+    genre: ["fantasy"],
+    category: "disney",
+    duration: 190,
+    year: 2000,
+    title: "OUAIS",
+    type: "film",
+    bigPicture: "",
   },
   {
-    id: 5,
-    photoURL:
+    _id: "5",
+    thumbnail:
       "https://images.unsplash.com/photo-1639290829571-f72eedf46efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    link: "/movies/20",
+    desc: "",
+    videoURL: "",
+    isSeries: false,
+    ageLimit: 10,
+    genre: ["fantasy"],
+    category: "disney",
+    duration: 190,
+    year: 2000,
+    title: "OUAIS",
+    type: "film",
+    bigPicture: "",
   },
   {
-    id: 6,
-    photoURL:
+    _id: "6",
+    thumbnail:
       "https://images.unsplash.com/photo-1639290829571-f72eedf46efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    link: "/movies/39",
+    desc: "",
+    videoURL: "",
+    isSeries: false,
+    ageLimit: 10,
+    genre: ["fantasy"],
+    category: "disney",
+    duration: 190,
+    year: 2000,
+    title: "OUAIS",
+    type: "film",
+    bigPicture: "",
   },
   {
-    id: 7,
-    photoURL:
+    _id: "7",
+    thumbnail:
       "https://images.unsplash.com/photo-1639290829571-f72eedf46efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    link: "/movies/36",
+    desc: "",
+    videoURL: "",
+    isSeries: false,
+    ageLimit: 10,
+    genre: ["fantasy"],
+    category: "disney",
+    duration: 190,
+    year: 2000,
+    title: "OUAIS",
+    type: "film",
+    bigPicture: "",
   },
   {
-    id: 8,
-    photoURL:
+    _id: "8",
+    thumbnail:
       "https://images.unsplash.com/photo-1639290829571-f72eedf46efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    link: "/movies/109",
+    desc: "",
+    videoURL: "",
+    isSeries: false,
+    ageLimit: 10,
+    genre: ["fantasy"],
+    category: "disney",
+    duration: 190,
+    year: 2000,
+    title: "OUAIS",
+    type: "film",
+    bigPicture: "",
   },
   {
-    id: 9,
-    photoURL:
+    _id: "9",
+    thumbnail:
       "https://images.unsplash.com/photo-1639290829571-f72eedf46efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    link: "/movies/376",
+    desc: "",
+    videoURL: "",
+    isSeries: false,
+    ageLimit: 10,
+    genre: ["fantasy"],
+    category: "disney",
+    duration: 190,
+    year: 2000,
+    title: "OUAIS",
+    type: "film",
+    bigPicture: "",
   },
   {
-    id: 10,
-    photoURL:
+    _id: "1",
+    thumbnail:
       "https://images.unsplash.com/photo-1639290829571-f72eedf46efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    link: "/movies/1986",
+    desc: "",
+    videoURL: "",
+    isSeries: false,
+    ageLimit: 10,
+    genre: ["fantasy"],
+    category: "disney",
+    duration: 190,
+    year: 2000,
+    title: "OUAIS",
+    type: "film",
+    bigPicture: "",
   },
   {
-    id: 11,
-    photoURL:
+    _id: "1",
+    thumbnail:
       "https://images.unsplash.com/photo-1639290829571-f72eedf46efe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    link: "/movies/1368",
+    desc: "",
+    videoURL: "",
+    isSeries: false,
+    ageLimit: 10,
+    genre: ["fantasy"],
+    category: "disney",
+    duration: 190,
+    year: 2000,
+    title: "OUAIS",
+    type: "film",
+    bigPicture: "",
   },
 ];
 

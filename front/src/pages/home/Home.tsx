@@ -14,7 +14,7 @@ export default function Home() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getRandomList(dispatch);
+    getRandomList(dispatch, false);
   }, [dispatch]);
 
   return (

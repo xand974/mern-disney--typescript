@@ -11,15 +11,34 @@ export const getSliderItem = async (setSliderItem: SetStateAction<any>) => {
 };
 
 export const getMovie = async (
-  content: string[],
-  setMovie: SetStateAction<any>
+  content: string[] | null,
+  setMovie: SetStateAction<any>,
+  pathname: string | null
 ) => {
   try {
-    const movieArr = await Promise.all(
-      content.map((id) => {
-        return privateRequest.get(`/movies/one/${id}`);
-      })
-    );
-    setMovie(movieArr.map((a) => a.data));
+    if (content) {
+      const movieArr = await Promise.all(
+        content.map((id) => {
+          return privateRequest.get(`/movies/one/${id}`);
+        })
+      );
+      setMovie(movieArr.map((a) => a.data));
+    }
+    if (pathname) {
+      const res = await privateRequest.get(`/movies/one/${pathname}`);
+      setMovie(res.data);
+    }
   } catch (error) {}
+};
+
+export const getMoviesByCat = async (
+  setMovies: SetStateAction<any>,
+  cat: string
+) => {
+  try {
+    const res = await privateRequest.get("/movies/cat?cat__query=" + cat);
+    setMovies(res.data);
+  } catch (error) {
+    alert(error);
+  }
 };

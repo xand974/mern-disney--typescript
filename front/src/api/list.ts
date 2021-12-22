@@ -6,11 +6,20 @@ import {
 import { AppDispatch } from "../context/store";
 import { privateRequest } from "./axios";
 
-export const getRandomList = async (dispatch: AppDispatch) => {
+export const getRandomList = async (
+  dispatch: AppDispatch,
+  isSuggestion: boolean
+) => {
   dispatch(getListsStart());
+  let res;
   try {
-    const res = await privateRequest.get("/lists/random");
-    dispatch(getListsSuccess(res.data));
+    if (isSuggestion) {
+      res = await privateRequest.get("/lists/random?suggestion=true");
+      dispatch(getListsSuccess(res.data));
+    } else {
+      res = await privateRequest.get("/lists/random");
+      dispatch(getListsSuccess(res.data));
+    }
   } catch (error) {
     dispatch(getListsFailure());
   }

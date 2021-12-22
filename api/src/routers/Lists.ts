@@ -60,8 +60,14 @@ router.get(
   "/random",
   checkToken,
   async (req: Request, res: Response): Promise<void> => {
+    const suggestion = req.query.suggestion;
+    let list;
     try {
-      const list = await List.aggregate([{ $sample: { size: 8 } }]);
+      if (suggestion) {
+        list = await List.aggregate([{ $sample: { size: 1 } }]);
+      } else {
+        list = await List.aggregate([{ $sample: { size: 8 } }]);
+      }
       res.status(200).json(list);
     } catch (error) {
       res.status(500).json({ message: error });
