@@ -1,28 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  InitialStateMovie,
+  MovieType,
+} from "../../../front/src/context/movieSlice";
+
+const initialState: InitialStateMovie = {
+  pending: false,
+  error: false,
+  movies: [],
+  movie: null,
+};
 
 export const MovieSlice = createSlice({
   name: "movies",
-  initialState: {
-    movies: [],
-    pending: false,
-    error: false,
-  },
+  initialState,
   reducers: {
-    GetMovieStart: (state) => {
+    GetMoviesStart: (state) => {
       state.pending = true;
     },
-    GetMovieSuccess: (state, action) => {
+    GetMoviesSuccess: (state, action: PayloadAction<MovieType[]>) => {
       state.pending = false;
       state.movies = action.payload;
     },
-    GetMovieFailure: (state) => {
+    GetMoviesFailure: (state) => {
       state.error = true;
       state.pending = false;
     },
     DeleteMovieStart: (state) => {
       state.pending = true;
     },
-    DeleteMovieSuccess: (state, action) => {
+    DeleteMovieSuccess: (state, action: PayloadAction<string>) => {
       state.pending = false;
       state.error = false;
       state.movies = state.movies.filter((m) => m._id !== action.payload);
@@ -34,7 +41,7 @@ export const MovieSlice = createSlice({
     UpdateMovieStart: (state) => {
       state.pending = true;
     },
-    UpdateMovieSuccess: (state, action) => {
+    UpdateMovieSuccess: (state, action: PayloadAction<string>) => {
       state.pending = false;
       state.error = false;
       state.movies.map(
@@ -48,7 +55,7 @@ export const MovieSlice = createSlice({
     CreateMovieStart: (state) => {
       state.pending = true;
     },
-    CreateMovieSuccess: (state, action) => {
+    CreateMovieSuccess: (state, action: PayloadAction<MovieType>) => {
       state.pending = false;
       state.error = false;
       state.movies = [...state.movies, action.payload];
@@ -62,9 +69,9 @@ export const MovieSlice = createSlice({
 
 export default MovieSlice.reducer;
 export const {
-  GetMovieStart,
-  GetMovieSuccess,
-  GetMovieFailure,
+  GetMoviesStart,
+  GetMoviesSuccess,
+  GetMoviesFailure,
   DeleteMovieFailure,
   DeleteMovieStart,
   DeleteMovieSuccess,

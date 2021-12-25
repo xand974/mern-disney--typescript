@@ -31,7 +31,7 @@ export default function ListsLists() {
         return (
           <div className="productlist">
             <Link
-              to={{ pathname: `/list/${params.row._id}`, list: params.row }}
+              to={{ pathname: `/list/${params.row._id}`, state: params.row }}
             >
               <button>
                 <EditOutlined className="btn__edit" />

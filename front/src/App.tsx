@@ -19,7 +19,7 @@ import { useState } from "react";
 import { logout } from "./api/auth";
 import Loading from "./components/loading/Loading";
 import CatPage from "./pages/catpage/CatPage";
-type TokenType = {
+export type TokenType = {
   exp: number;
 };
 function App() {

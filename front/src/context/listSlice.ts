@@ -8,7 +8,7 @@ export type ListType = {
   genre: string;
 };
 
-type InitialStateList = {
+export type InitialStateList = {
   pending: boolean;
   error: boolean;
   lists: ListType[];

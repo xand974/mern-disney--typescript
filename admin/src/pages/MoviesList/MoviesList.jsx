@@ -27,7 +27,7 @@ export default function Products() {
       renderCell: (params) => {
         return (
           <div className="renderProduct">
-            <img src={params.row.titleImage} alt="" />
+            <img src={params.row.thumbnail} alt="" />
             {params.row.title}
           </div>
         );

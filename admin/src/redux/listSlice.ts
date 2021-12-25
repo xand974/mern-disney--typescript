@@ -1,17 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  InitialStateList,
+  ListType,
+} from "../../../front/src/context/listSlice";
+
+const initialState: InitialStateList = {
+  pending: false,
+  error: false,
+  lists: [],
+};
 
 export const listSlice = createSlice({
   name: "lists",
-  initialState: {
-    lists: [],
-    pending: false,
-    error: false,
-  },
+  initialState,
   reducers: {
     CreateListsStart: (state) => {
       state.pending = true;
     },
-    CreateListsSuccess: (state, action) => {
+    CreateListsSuccess: (state, action: PayloadAction<ListType>) => {
       state.pending = false;
       state.lists = [...state.lists, action.payload];
     },
@@ -22,7 +28,7 @@ export const listSlice = createSlice({
     GetListsStart: (state) => {
       state.pending = true;
     },
-    GetListsSuccess: (state, action) => {
+    GetListsSuccess: (state, action: PayloadAction<ListType[]>) => {
       state.pending = false;
       state.lists = action.payload;
     },
@@ -33,7 +39,7 @@ export const listSlice = createSlice({
     DeleteListsStart: (state) => {
       state.pending = true;
     },
-    DeleteListsSuccess: (state, action) => {
+    DeleteListsSuccess: (state, action: PayloadAction<string>) => {
       state.pending = false;
       state.lists = state.lists.filter((list) => list._id !== action.payload);
     },
@@ -44,7 +50,7 @@ export const listSlice = createSlice({
     UpdateListStart: (state) => {
       state.pending = true;
     },
-    UpdateListSuccess: (state, action) => {
+    UpdateListSuccess: (state, action: PayloadAction<string>) => {
       state.pending = false;
       state.lists.map((list) => list._id === action.payload && action.payload);
     },

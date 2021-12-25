@@ -1,17 +1,17 @@
 import "./login.scss";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { CircularProgress } from "@material-ui/core";
 import { login } from "redux/apiCalls";
 import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../hooks/selectors";
+import { UserAdminType } from "../../redux/apiCalls";
+import { useHistory } from "react-router";
 export default function Login() {
-  const { pending, error } = useSelector((state) => state.user);
+  const { pending, error } = useAppSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [userInput, setUserInput] = useState({
-    username: "",
-    password: "",
-  });
-  const HandleChange = (e) => {
+  const [userInput, setUserInput] = useState({} as UserAdminType);
+  const history = useHistory();
+  const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserInput((prev) => {
       return {
@@ -22,9 +22,9 @@ export default function Login() {
   };
 
   const HandleClick = () => {
-    login(userInput, dispatch);
+    login(userInput, dispatch, history);
   };
-  console.log("error", error);
+
   return (
     <div className="login">
       <form method="post" onSubmit={(e) => e.preventDefault()}>

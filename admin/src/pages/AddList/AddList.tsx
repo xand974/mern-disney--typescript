@@ -1,22 +1,23 @@
 import "./addList.scss";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useHistory } from "react-router";
-import { useSelector } from "react-redux";
 import { createList, fetchMovies } from "redux/apiCalls";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { ListType } from "../../../../front/src/context/listSlice";
+import { useAppSelector } from "hooks/selectors";
 
 export default function AddList() {
   const history = useHistory();
-  const [userInput, setUserInput] = useState({});
+  const [userInput, setUserInput] = useState({} as ListType);
   const dispatch = useDispatch();
-  const { movies } = useSelector((state) => state.movies);
+  const { movies } = useAppSelector((state) => state.movies);
 
   useEffect(() => {
     fetchMovies(dispatch);
   }, [dispatch]);
 
-  const HandleChange = (e) => {
+  const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserInput((prev) => {
       return {
@@ -26,7 +27,7 @@ export default function AddList() {
     });
   };
 
-  const HandleSelect = (e) => {
+  const HandleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     let value = Array.from(
       e.target.selectedOptions,
       (options) => options.value
@@ -41,8 +42,10 @@ export default function AddList() {
   };
 
   const HandleClick = () => {
-    createList(dispatch, userInput);
-    history.push("/lists");
+    if (userInput) {
+      createList(dispatch, userInput);
+      history.push("/lists");
+    }
   };
   return (
     <div className="add">

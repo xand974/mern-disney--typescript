@@ -1,22 +1,30 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import "./addMovie.scss";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useHistory } from "react-router";
 import { storage } from "firebase";
 import { CreateMovie } from "redux/apiCalls";
 import { useDispatch } from "react-redux";
+import { MovieType } from "../../../../front/src/context/movieSlice";
+
+type FileType = {
+  file: any;
+  label: string;
+};
 
 export default function AddMovie() {
-  const [movie, setMovie] = useState({});
-  const [thumbnail, setThumbnail] = useState(null);
-  const [bigPicture, setBigPicture] = useState(null);
-  const [trailer, setTrailer] = useState(null);
-  const [video, setVideo] = useState(null);
+  const [movie, setMovie] = useState({} as MovieType);
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [bigPicture, setBigPicture] = useState<File | null>(null);
+  const [trailer, setTrailer] = useState<File | null>(null);
+  const [video, setVideo] = useState<File | null>(null);
   const [uploaded, setUploaded] = useState(0);
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const HandleChange = (e) => {
+  const HandleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setMovie((prev) => {
       return {
@@ -26,17 +34,17 @@ export default function AddMovie() {
     });
   };
 
-  const upload = (items) => {
+  const upload = (items: FileType[]) => {
     items.forEach((item) => {
       const fileName = Date.now() + "_" + item.file.name;
       const storageRef = ref(storage, `/items/${fileName}`);
       const uploadTask = uploadBytesResumable(storageRef, item.file);
 
       uploadTask.on(
-        "state_changes",
+        "state_changed",
         (snapshot) => {
           const progress =
-            (snapshot.byteTransferred / snapshot.totalBytes) * 100;
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("upload is " + progress + "% done.");
         },
         (err) => {
@@ -53,7 +61,7 @@ export default function AddMovie() {
       );
     });
   };
-  const handleUpload = (e) => {
+  const handleUpload = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     upload([
@@ -77,7 +85,9 @@ export default function AddMovie() {
             type="file"
             name="thumbnail"
             id="thumbnail"
-            onChange={(e) => setThumbnail(e.target.files[0])}
+            onChange={(e) => {
+              if (e.target.files) setThumbnail(e.target.files[0]);
+            }}
           />
         </div>
         <div className="data">
@@ -86,7 +96,9 @@ export default function AddMovie() {
             type="file"
             name="bigPicture"
             id="bigPicture"
-            onChange={(e) => setBigPicture(e.target.files[0])}
+            onChange={(e) => {
+              if (e.target.files) setBigPicture(e.target.files[0]);
+            }}
           />
         </div>
         <div className="data">
@@ -95,7 +107,9 @@ export default function AddMovie() {
             type="file"
             name="trailer"
             id="trailer"
-            onChange={(e) => setTrailer(e.target.files[0])}
+            onChange={(e) => {
+              if (e.target.files) setTrailer(e.target.files[0]);
+            }}
           />
         </div>
         <div className="data">
@@ -104,7 +118,9 @@ export default function AddMovie() {
             type="file"
             name="videoURL"
             id="videoURL"
-            onChange={(e) => setVideo(e.target.files[0])}
+            onChange={(e) => {
+              if (e.target.files) setVideo(e.target.files[0]);
+            }}
           />
         </div>
         <div className="data">

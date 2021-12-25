@@ -16,14 +16,14 @@ export type MovieType = {
   bigPicture: string;
 };
 
-type InitialStateList = {
+export type InitialStateMovie = {
   pending: boolean;
   error: boolean;
   movies: MovieType[];
   movie: MovieType | null;
 };
 
-const initialState: InitialStateList = {
+const initialState: InitialStateMovie = {
   pending: false,
   error: false,
   movies: [],

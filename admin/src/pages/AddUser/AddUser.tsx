@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import "./addUser.scss";
 import { useHistory } from "react-router";
 import { createUser } from "redux/apiCalls";
+import { UserAdminType } from "../../redux/apiCalls";
 
 export default function Add() {
   const history = useHistory();
-  const [userInput, setUserInput] = useState({});
+  const [userInput, setUserInput] = useState({} as UserAdminType);
 
-  const HandleChange = (e) => {
+  const HandleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setUserInput((prev) => {
       return {
@@ -61,22 +64,11 @@ export default function Add() {
           <label htmlFor="phone">Phone</label>
           <input
             onChange={HandleChange}
-            placeholder="06 98 75 32 45"
+            placeholder="password"
             type="text"
-            name="phone"
-            value={userInput.phone}
-            id="phone"
-          />
-        </div>
-        <div className="data">
-          <label htmlFor="address">Address</label>
-          <input
-            onChange={HandleChange}
-            placeholder="New York | USA"
-            type="text"
-            value={userInput.address}
-            name="address"
-            id="adresse"
+            name="password"
+            value={userInput.password}
+            id="password"
           />
         </div>
         <div className="data">

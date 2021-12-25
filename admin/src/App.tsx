@@ -1,40 +1,41 @@
-import Sidebar from "components/Sidebar/Sidebar";
-import Topbar from "components/Topbar/Topbar";
-import Home from "pages/Home/Home";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Topbar from "./components/Topbar/Topbar";
+import Home from "./pages/Home/Home";
 import "./app.scss";
-import UserList from "pages/UserList/UserList";
+import UserList from "./pages/UserList/UserList";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
 } from "react-router-dom";
-import User from "pages/User/User";
-import AddUser from "pages/AddUser/AddUser";
-import MoviesList from "pages/MoviesList/MoviesList";
-import Login from "pages/Login/Login";
-import { useSelector } from "react-redux";
-import Movie from "pages/Movie/Movie";
-import AddMovie from "pages/AddMovie/AddMovie";
-import ListsLists from "pages/listsList/ListsLists";
-import List from "pages/List/List";
-import AddList from "pages/AddList/AddList";
+import User from "./pages/User/User";
+import AddUser from "./pages/AddUser/AddUser";
+import MoviesList from "./pages/MoviesList/MoviesList";
+import Login from "./pages/Login/Login";
+import Movie from "./pages/Movie/Movie";
+import AddMovie from "./pages/AddMovie/AddMovie";
+import ListsLists from "./pages/listsList/ListsLists";
+import List from "./pages/List/List";
+import AddList from "./pages/AddList/AddList";
 import { useEffect } from "react";
 import jwt from "jwt-decode";
-import { logout } from "redux/apiCalls";
+import { logout } from "./redux/apiCalls";
 import { useDispatch } from "react-redux";
-import Loading from "components/Loading/Loading";
+import Loading from "./components/Loading/Loading";
 import { useState } from "react";
+import { useAppSelector } from "./hooks/selectors";
+import { TokenType } from "../../front/src/App";
 
 function App() {
-  const { user } = useSelector((state) => state.user);
+  const { currentUser } = useAppSelector((state) => state.user);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      const { exp } = jwt(user?.accessToken);
-      if (exp * 1000 < Date.now()) {
+    if (currentUser) {
+      const token: TokenType = jwt(currentUser?.accessToken);
+      if (token.exp * 1000 < Date.now()) {
         logout(dispatch);
         setLoading(true);
       } else {
@@ -43,7 +44,7 @@ function App() {
     } else {
       setLoading(true);
     }
-  }, [user, dispatch]);
+  }, [currentUser, dispatch]);
 
   if (!loading) {
     return <Loading />;
@@ -53,8 +54,10 @@ function App() {
     <Router>
       <div className="app">
         <Switch>
-          <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
-          {user ? (
+          <Route path="/login">
+            {currentUser ? <Redirect to="/" /> : <Login />}
+          </Route>
+          {currentUser ? (
             <>
               <Topbar />
               <div className="wrapper">

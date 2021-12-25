@@ -1,9 +1,9 @@
-import { publicRequest, privateRequest } from "api";
+import { publicRequest, privateRequest } from "../api";
 import { loginFailure, loginStart, loginSuccess } from "./userSlice";
 import {
-  GetMovieStart,
-  GetMovieFailure,
-  GetMovieSuccess,
+  GetMoviesStart,
+  GetMoviesFailure,
+  GetMoviesSuccess,
   DeleteMovieStart,
   DeleteMovieFailure,
   DeleteMovieSuccess,
@@ -28,14 +28,34 @@ import {
   UpdateListSuccess,
 } from "./listSlice";
 import jwtDecode from "jwt-decode";
+import { AppDispatch } from "./store";
+import { ListType } from "../../../front/src/context/listSlice";
+import { MovieType } from "../../../front/src/context/movieSlice";
 
-export const login = async (user, dispatch, history) => {
+export type UserAdminType = {
+  _id: string;
+  isAdmin: boolean;
+  username: string;
+  password: string;
+  email: string;
+  fullName: string;
+  isSubscribed: boolean;
+};
+
+export const login = async (
+  user: UserAdminType,
+  dispatch: AppDispatch,
+  history: any
+) => {
   dispatch(loginStart());
   try {
-    const res = await publicRequest.post("/auth/login", user);
+    const res = await publicRequest.post("/auth/login", {
+      username: user.username,
+      password: user.password,
+    });
 
     if (res.data) {
-      const userData = jwtDecode(res.data.accessToken);
+      const userData: UserAdminType = jwtDecode(res.data.accessToken);
       if (userData.isAdmin) {
         dispatch(loginSuccess(res.data));
         localStorage.setItem("user", JSON.stringify(res.data));
@@ -49,22 +69,22 @@ export const login = async (user, dispatch, history) => {
   }
 };
 
-export const logout = (history) => {
+export const logout = (history: any) => {
   localStorage.clear();
   history.push("/login");
 };
 
-export const fetchMovies = async (dispatch) => {
-  dispatch(GetMovieStart());
+export const fetchMovies = async (dispatch: AppDispatch) => {
+  dispatch(GetMoviesStart());
   try {
     const res = await privateRequest.get("/movies/all");
-    dispatch(GetMovieSuccess(res.data));
+    dispatch(GetMoviesSuccess(res.data));
   } catch (err) {
-    dispatch(GetMovieFailure());
+    dispatch(GetMoviesFailure());
   }
 };
 
-export const deleteMovie = async (dispatch, id) => {
+export const deleteMovie = async (dispatch: AppDispatch, id: string) => {
   dispatch(DeleteMovieStart());
   try {
     await privateRequest.delete("/movies/" + id);
@@ -74,7 +94,11 @@ export const deleteMovie = async (dispatch, id) => {
     dispatch(DeleteMovieFailure());
   }
 };
-export const CreateMovie = async (dispatch, userInput, history) => {
+export const CreateMovie = async (
+  dispatch: AppDispatch,
+  userInput: MovieType,
+  history: any
+) => {
   dispatch(CreateMovieStart());
   try {
     const res = await privateRequest.post("/movies/add", userInput);
@@ -84,7 +108,11 @@ export const CreateMovie = async (dispatch, userInput, history) => {
     dispatch(DeleteMovieFailure());
   }
 };
-export const updateMovie = async (id, userInput, dispatch) => {
+export const updateMovie = async (
+  id: string,
+  userInput: UserAdminType,
+  dispatch: AppDispatch
+) => {
   dispatch(UpdateMovieStart());
   try {
     await privateRequest.put("/movies/" + id, userInput);
@@ -94,7 +122,7 @@ export const updateMovie = async (id, userInput, dispatch) => {
   }
 };
 
-export const deleteUser = async (id) => {
+export const deleteUser = async (id: string) => {
   try {
     await privateRequest.delete("/users/" + id);
     window.location.reload();
@@ -103,7 +131,10 @@ export const deleteUser = async (id) => {
   }
 };
 
-export const createList = async (dispatch, userInput) => {
+export const createList = async (
+  dispatch: AppDispatch,
+  userInput: ListType
+) => {
   dispatch(CreateListsStart());
   try {
     const res = await privateRequest.post("/lists/add", userInput);
@@ -113,7 +144,7 @@ export const createList = async (dispatch, userInput) => {
   }
 };
 
-export const getLists = async (dispatch) => {
+export const getLists = async (dispatch: AppDispatch) => {
   dispatch(GetListsStart());
   try {
     const res = await privateRequest.get("/lists/all");
@@ -123,7 +154,11 @@ export const getLists = async (dispatch) => {
   }
 };
 
-export const updateList = async (id, userInput, dispatch) => {
+export const updateList = async (
+  id: string,
+  userInput: ListType,
+  dispatch: AppDispatch
+) => {
   dispatch(UpdateListStart());
   try {
     await privateRequest.put("/lists/" + id, userInput);
@@ -133,7 +168,7 @@ export const updateList = async (id, userInput, dispatch) => {
   }
 };
 
-export const deleteList = async (id, dispatch) => {
+export const deleteList = async (id: string, dispatch: AppDispatch) => {
   dispatch(DeleteListsStart());
   try {
     await privateRequest.delete("/lists/" + id);
@@ -143,20 +178,20 @@ export const deleteList = async (id, dispatch) => {
   }
 };
 
-export const updateUser = async (user, userInput, history) => {
+export const updateUser = async (
+  user: UserAdminType,
+  userInput: UserAdminType,
+  history: any
+) => {
   try {
-    await privateRequest.put("/users/" + user._id, userInput, {
-      headers: {
-        authorization: JSON.parse(localStorage.getItem("user")).accessToken,
-      },
-    });
+    await privateRequest.put("/users/" + user._id, userInput);
     history.push("/users");
   } catch (err) {
     console.log(err);
   }
 };
 
-export const createUser = async (history) => {
+export const createUser = async (history: any) => {
   try {
     await privateRequest.post("/users/create");
 
