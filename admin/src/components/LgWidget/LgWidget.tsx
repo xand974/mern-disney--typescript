@@ -1,7 +1,12 @@
 import "./lgWidget.scss";
 
+type ButtonType = {
+  type: string;
+  text: string;
+};
+
 export default function LgWidget() {
-  const Button = ({ type, text }) => {
+  const Button = ({ type, text }: ButtonType) => {
     return <button className={"btn " + type}>{text}</button>;
   };
   return (

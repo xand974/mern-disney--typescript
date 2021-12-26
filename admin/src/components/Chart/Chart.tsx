@@ -9,7 +9,14 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function Chart({ grid, data, title, dataKey }) {
+type ChartType = {
+  grid: boolean;
+  data: any;
+  title: string;
+  dataKey: any;
+};
+
+export default function Chart({ grid, data, title, dataKey }: ChartType) {
   return (
     <div className="chart">
       <h2 className="title">{title}</h2>

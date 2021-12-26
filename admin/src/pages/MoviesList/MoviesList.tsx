@@ -1,21 +1,26 @@
 import { DeleteOutlined, EditOutlined } from "@material-ui/icons";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridColumns } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import "./moviesList.scss";
 import { deleteMovie, fetchMovies } from "redux/apiCalls";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../hooks/selectors";
+import { MovieType } from "../../../../front/src/context/movieSlice";
+
+type GridMovieListType = {
+  row: MovieType;
+};
 
 export default function Products() {
   const dispatch = useDispatch();
-  const { movies } = useSelector((state) => state.movies);
+  const { movies } = useAppSelector((state) => state.movies);
 
   useEffect(() => {
     fetchMovies(dispatch);
   }, [dispatch]);
 
-  const HandleClick = (id) => {
+  const HandleClick = (id: string) => {
     deleteMovie(dispatch, id);
   };
   const columns = [
@@ -24,7 +29,7 @@ export default function Products() {
       field: "title",
       headerName: "Title",
       width: 200,
-      renderCell: (params) => {
+      renderCell: (params: GridMovieListType) => {
         return (
           <div className="renderProduct">
             <img src={params.row.thumbnail} alt="" />
@@ -50,11 +55,11 @@ export default function Products() {
       field: "action",
       headerName: "Action",
       width: 160,
-      renderCell: (params) => {
+      renderCell: (params: GridMovieListType) => {
         return (
           <div className="productlist">
             <Link
-              to={{ pathname: `/movie/${params.row._id}`, movie: params.row }}
+              to={{ pathname: `/movie/${params.row._id}`, state: params.row }}
             >
               <button>
                 <EditOutlined className="btn__edit" />
@@ -71,7 +76,7 @@ export default function Products() {
         );
       },
     },
-  ];
+  ] as GridColumns;
   return (
     <div className="products">
       <div className="container__title">

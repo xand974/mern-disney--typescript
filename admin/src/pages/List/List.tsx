@@ -13,7 +13,6 @@ import { MovieType } from "../../../../front/src/context/movieSlice";
 export default function List() {
   const location = useLocation();
   const list = location.state as ListType;
-  console.log(list);
 
   const [content, setContent] = useState<MovieType[]>([]);
   const [userInput, setUserInput] = useState({} as ListType);

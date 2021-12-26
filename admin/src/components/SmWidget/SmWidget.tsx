@@ -2,9 +2,10 @@ import { Visibility } from "@material-ui/icons";
 import { users } from "../../mockData";
 import { useEffect, useState } from "react";
 import "./smWidget.scss";
+import { UserAdminType } from "../../redux/apiCalls";
 
 export default function SmWidget() {
-  const [newUser, setNewUser] = useState([]);
+  const [newUser, setNewUser] = useState<UserAdminType[]>([]);
   useEffect(() => {
     setNewUser(users);
   }, []);
@@ -18,14 +19,13 @@ export default function SmWidget() {
             <div className="display__user" key={key}>
               <img
                 src={
-                  u?.profilePicture ||
                   "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
                 }
                 alt=""
               />
               <div className="infos">
-                <span className="name">{u?.username}</span>
-                <span className="job">{u?.email}</span>
+                <span className="name">{u.username}</span>
+                <span className="job">{u.email}</span>
               </div>
               <button>
                 <Visibility /> display

@@ -2,23 +2,23 @@ import {
   CalendarTodayOutlined,
   CloudUploadOutlined,
   EmailOutlined,
-  LocationCityOutlined,
   PermIdentityOutlined,
   PhoneOutlined,
 } from "@material-ui/icons";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./user.scss";
 import { useHistory } from "react-router";
 import { updateUser } from "redux/apiCalls";
+import { UserAdminType } from "../../redux/apiCalls";
 
 export default function User() {
   const location = useLocation();
-  const user = location.user;
-  const [userInput, setUserInput] = useState({});
+  const user = location.state as UserAdminType;
+  const [userInput, setUserInput] = useState({} as UserAdminType);
   const history = useHistory();
 
-  const HandleChange = (e) => {
+  const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setUserInput((prev) => {
       return {
@@ -69,9 +69,6 @@ export default function User() {
             </span>
             <span>
               <EmailOutlined className="icon" /> {user.email}
-            </span>
-            <span>
-              <LocationCityOutlined className="icon" /> {user.location}
             </span>
           </div>
         </div>

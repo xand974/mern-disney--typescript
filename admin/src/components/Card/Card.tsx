@@ -1,6 +1,10 @@
 import "./card.scss";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
-export default function Card({ price }) {
+type CardType = {
+  price: number;
+};
+
+export default function Card({ price }: CardType) {
   return (
     <div className="card">
       <span className="title">Revenue</span>

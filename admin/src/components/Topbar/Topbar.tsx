@@ -2,22 +2,32 @@ import { Language, NotificationsNone, Settings } from "@material-ui/icons";
 import { useRef, useState } from "react";
 import "./topbar.scss";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 export default function Topbar() {
-  const [isTriggered, setIstriggered] = useState(false);
-  const nav = useRef();
-  window.addEventListener("scroll", (e) => {
-    if (window.scrollY > 50) {
-      setIstriggered(true);
-    } else {
-      setIstriggered(false);
+  const [isTriggered, setIsTriggered] = useState(false);
+  const nav = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleScroll() {
+      if (window.scrollY > 50) {
+        setIsTriggered(true);
+      } else {
+        setIsTriggered(false);
+      }
     }
-  });
+
+    window.addEventListener("scroll", () => {
+      handleScroll();
+    });
+
+    return window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div
       className="topbar"
       ref={nav}
-      style={{ background: isTriggered && "#e5e5e5" }}
+      style={{ background: isTriggered ? "#e5e5e5" : "none" }}
     >
       <Link to="/">
         <span className="title">Flixadmin</span>

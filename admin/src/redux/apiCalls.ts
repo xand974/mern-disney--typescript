@@ -110,7 +110,7 @@ export const CreateMovie = async (
 };
 export const updateMovie = async (
   id: string,
-  userInput: UserAdminType,
+  userInput: MovieType,
   dispatch: AppDispatch
 ) => {
   dispatch(UpdateMovieStart());

@@ -1,20 +1,21 @@
 import "./userList.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridColumns } from "@mui/x-data-grid";
 import { DeleteOutlined, EditOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { users } from "../../mockData";
 import { useEffect } from "react";
+import { UserAdminType } from "../../redux/apiCalls";
 
 export default function UserList() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<UserAdminType[]>([]);
 
   useEffect(() => {
     setData(users);
   }, []);
-  const HandleClick = (id) => {
+  const HandleClick = (id: string) => {
     setData((prev) => {
-      return prev.filter((m) => m.id !== id);
+      return prev.filter((m) => m._id !== id);
     });
   };
 
@@ -47,7 +48,9 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <div className="userlist">
-            <Link to={{ pathname: `/user/${params.row.id}`, user: params.row }}>
+            <Link
+              to={{ pathname: `/user/${params.row.id}`, state: params.row }}
+            >
               <button>
                 <EditOutlined className="btn__edit" />
               </button>
@@ -63,7 +66,7 @@ export default function UserList() {
         );
       },
     },
-  ];
+  ] as GridColumns;
   return (
     <div className="userlist">
       <div className="container__title">

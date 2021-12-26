@@ -2,18 +2,19 @@ import { useHistory, useLocation } from "react-router";
 import "./movie.scss";
 import { CloudUploadOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { updateMovie } from "redux/apiCalls";
 import { useDispatch } from "react-redux";
+import { MovieType } from "../../../../front/src/context/movieSlice";
 
 export default function Movie() {
   const location = useLocation();
-  const movie = location.movie;
-  const [userInput, setUserInput] = useState({});
+  const movie = location.state as MovieType;
+  const [userInput, setUserInput] = useState({} as MovieType);
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const HandleChange = (e) => {
+  const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setUserInput((prev) => {
       return {
@@ -38,13 +39,7 @@ export default function Movie() {
       <div className="wrapper">
         <div className="description">
           <div className="img">
-            <img
-              src={
-                movie.titleImage ||
-                "https://i.pinimg.com/originals/1d/15/69/1d1569322ba074da6624218cab85129e.jpg"
-              }
-              alt=""
-            />
+            <img src={movie.thumbnail} alt="" />
             <span>{movie.title}</span>
           </div>
           <div className="infos">
@@ -75,17 +70,9 @@ export default function Movie() {
             <div className="item">
               <span className="infoItem">Synopsis: </span>{" "}
               <span className="synopsis infoData">
-                {movie.synopsis.length > 100
-                  ? movie.synopsis.substring(0, 100) + "..."
-                  : movie.synopsis}
-              </span>
-            </div>
-            <div className="item">
-              <span className="infoItem">Trailer: </span>{" "}
-              <span className="infoData trailer">
-                {movie.trailer.length > 100
-                  ? movie.trailer.substring(0, 100) + "..."
-                  : movie.trailer}
+                {movie.desc.length > 100
+                  ? movie.desc.substring(0, 100) + "..."
+                  : movie.desc}
               </span>
             </div>
           </div>
@@ -106,7 +93,7 @@ export default function Movie() {
 
                 <label htmlFor="year">Year</label>
                 <input
-                  placeholder={movie.year}
+                  placeholder={movie.year.toString()}
                   onChange={HandleChange}
                   name="year"
                   type="text"
@@ -115,7 +102,7 @@ export default function Movie() {
 
                 <label htmlFor="genre">Genre</label>
                 <input
-                  placeholder={movie.genre}
+                  placeholder="fantasy"
                   onChange={HandleChange}
                   name="genre"
                   type="text"
@@ -130,11 +117,9 @@ export default function Movie() {
                   name="synopsis"
                 />
 
-                <label htmlFor="agelimit" onChange={HandleChange}>
-                  Age Limit
-                </label>
+                <label htmlFor="agelimit">Age Limit</label>
                 <input
-                  placeholder={movie.ageLimit}
+                  placeholder={movie.ageLimit.toString()}
                   type="number"
                   id="synopsis"
                   name="ageLimit"

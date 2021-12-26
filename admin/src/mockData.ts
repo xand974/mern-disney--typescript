@@ -1,3 +1,5 @@
+import { UserAdminType } from "redux/apiCalls";
+
 export const data = [
   {
     name: "January",
@@ -49,105 +51,105 @@ export const data = [
   },
 ];
 
-export const users = [
+export const users: UserAdminType[] = [
   {
-    id: 1,
+    _id: "1",
     username: "Snow",
     email: "Jon@gmail.com",
     isAdmin: false,
-    avatar:
-      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
-    status: "active",
+    password: "",
+    isSubscribed: true,
+    fullName: "Alexandre Malet",
   },
   {
-    id: 2,
+    _id: "2",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,
-    avatar:
-      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
-    status: "active",
+    password: "",
+    isSubscribed: true,
+    fullName: "Alexandre Malet",
   },
   {
-    id: 3,
+    _id: "3",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,
-    avatar:
-      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
-    status: "active",
+    password: "",
+    isSubscribed: true,
+    fullName: "Alexandre Malet",
   },
   {
-    id: 4,
+    _id: "4",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,
-    avatar:
-      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
-    status: "active",
+    password: "",
+    isSubscribed: true,
+    fullName: "Alexandre Malet",
   },
   {
-    id: 5,
+    _id: "5",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,
-    avatar:
-      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
-    status: "active",
+    password: "",
+    isSubscribed: true,
+    fullName: "Alexandre Malet",
   },
   {
-    id: 6,
+    _id: "6",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,
-    avatar:
-      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
-    status: "active",
+    password: "",
+    isSubscribed: true,
+    fullName: "Alexandre Malet",
   },
   {
-    id: 7,
+    _id: "7",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,
-    avatar:
-      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
-    status: "active",
+    password: "",
+    isSubscribed: true,
+    fullName: "Alexandre Malet",
   },
   {
-    id: 8,
+    _id: "8",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,
-    avatar:
-      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
-    status: "active",
+    password: "",
+    isSubscribed: true,
+    fullName: "Alexandre Malet",
   },
   {
-    id: 9,
+    _id: "9",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,
-    avatar:
-      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
-    status: "active",
+    password: "",
+    isSubscribed: true,
+    fullName: "Alexandre Malet",
   },
   {
-    id: 10,
+    _id: "1",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,
-    avatar:
-      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
-    status: "active",
+    password: "",
+    isSubscribed: true,
+    fullName: "Alexandre Malet",
   },
   {
-    id: 11,
+    _id: "1",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,
-    avatar:
-      "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg",
-    status: "active",
+    password: "",
+    isSubscribed: true,
+    fullName: "Alexandre Malet",
   },
 ];
 
