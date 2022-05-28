@@ -16,7 +16,7 @@ import { useAppSelector, useAppDispatch } from "./hooks/selector";
 import { useEffect } from "react";
 import jwt from "jwt-decode";
 import { useState } from "react";
-import { logout } from "./api/auth";
+import { signOut } from "./api/auth";
 import Loading from "./components/loading/Loading";
 import CatPage from "./pages/catpage/CatPage";
 export type TokenType = {
@@ -31,7 +31,7 @@ function App() {
     if (currentUser) {
       const token: TokenType = jwt(currentUser.accessToken);
       if (token.exp * 1000 < Date.now()) {
-        logout(dispatch);
+        signOut(dispatch);
         setLoading(true);
       } else {
         setLoading(true);

@@ -8,13 +8,13 @@ const router = Router();
 router.post(
   "/add",
   [checkToken, checkAdmin],
-  async (req: Request, res: Response): Promise<void> => {
+  async (req: Request, res: Response) => {
     try {
       const movie = new Movie(req.body);
       const newMovie = await movie.save();
-      res.status(200).json(newMovie);
+      return res.status(200).json(newMovie);
     } catch (error) {
-      res.status(500).json({
+      return res.status(500).json({
         message: error,
       });
     }
@@ -24,16 +24,16 @@ router.post(
 router.put(
   "/:id",
   [checkToken, checkAdmin],
-  async (req: Request, res: Response): Promise<void> => {
+  async (req: Request, res: Response) => {
     try {
       const updatedMovie = await Movie.findByIdAndUpdate(
         req.params.id,
         { $set: req.body },
         { new: true }
       );
-      res.status(200).json(updatedMovie);
+      return res.status(200).json(updatedMovie);
     } catch (error) {
-      res.status(500).json({
+      return res.status(500).json({
         message: error,
       });
     }
@@ -44,12 +44,14 @@ router.put(
 router.delete(
   "/:id",
   [checkToken, checkAdmin],
-  async (req: Request, res: Response): Promise<void> => {
+  async (req: Request, res: Response) => {
     try {
       await Movie.findByIdAndDelete(req.params.id);
-      res.status(200).json("movie or serie has been deleted successfully");
+      return res
+        .status(200)
+        .json("movie or serie has been deleted successfully");
     } catch (error) {
-      res.status(500).json({
+      return res.status(500).json({
         message: error,
       });
     }
@@ -57,41 +59,37 @@ router.delete(
 );
 
 //GET RANDOM MOVIE OR SERIE
-router.get(
-  "/random",
-  checkToken,
-  async (req: Request, res: Response): Promise<void> => {
-    let movie;
-    const type = req.query.type;
-    try {
-      if (type === "series") {
-        movie = await Movie.aggregate([
-          { $match: { isSeries: true } },
-          { $sample: { size: 1 } },
-        ]);
-      } else {
-        movie = await Movie.aggregate([
-          { $match: { isSeries: false } },
-          { $sample: { size: 1 } },
-        ]);
-      }
-      res.status(200).json(movie);
-    } catch (error) {
-      res.status(500).json({ message: error });
+router.get("/random", checkToken, async (req: Request, res: Response) => {
+  let movie;
+  const type = req.query.type;
+  try {
+    if (type === "series") {
+      movie = await Movie.aggregate([
+        { $match: { isSeries: true } },
+        { $sample: { size: 1 } },
+      ]);
+    } else {
+      movie = await Movie.aggregate([
+        { $match: { isSeries: false } },
+        { $sample: { size: 1 } },
+      ]);
     }
+    return res.status(200).json(movie);
+  } catch (error) {
+    return res.status(500).json({ message: error });
   }
-);
+});
 
 //GET MOVIES
 router.get(
   "/all",
   [checkToken, checkAdmin],
-  async (req: Request, res: Response): Promise<void> => {
+  async (req: Request, res: Response) => {
     try {
       const movies = await Movie.find({});
-      res.status(200).json(movies);
+      return res.status(200).json(movies);
     } catch (error) {
-      res.status(500).json({
+      return res.status(500).json({
         message: error,
       });
     }
@@ -99,54 +97,46 @@ router.get(
 );
 
 //GET ONE
-router.get(
-  "/one/:id",
-  checkToken,
-  async (req: Request, res: Response): Promise<void> => {
-    try {
-      const movie = await Movie.findById(req.params.id);
-      res.status(200).json(movie);
-    } catch (error) {
-      res.status(500).json({
-        message: error,
-      });
-    }
+router.get("/one/:id", checkToken, async (req: Request, res: Response) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    return res.status(200).json(movie);
+  } catch (error) {
+    return res.status(500).json({
+      message: error,
+    });
   }
-);
+});
 
 router.get("/search", checkToken, async (req: Request, res: Response) => {
   try {
     const search__query: string = req.body.search__query;
     const movie = await Movie.find({ $text: { $search: search__query } });
-    res.status(200).json(movie);
+    return res.status(200).json(movie);
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       message: error,
     });
   }
 });
 
 //get 4 random movies
-router.get(
-  "/slider",
-  checkToken,
-  async (req: Request, res: Response): Promise<void> => {
-    try {
-      const movies = await Movie.aggregate([{ $sample: { size: 4 } }]);
-      res.status(200).json(movies);
-    } catch (error) {
-      res.status(500).json({ message: error });
-    }
+router.get("/slider", checkToken, async (req: Request, res: Response) => {
+  try {
+    const movies = await Movie.aggregate([{ $sample: { size: 4 } }]);
+    return res.status(200).json(movies);
+  } catch (error) {
+    return res.status(500).json({ message: error });
   }
-);
+});
 
 router.get("/cat", checkToken, async (req: Request, res: Response) => {
   try {
     const catQuery = req.query.cat__query;
     const movies = await Movie.find({ category: catQuery });
-    res.status(200).json(movies);
+    return res.status(200).json(movies);
   } catch (error) {
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 });
 

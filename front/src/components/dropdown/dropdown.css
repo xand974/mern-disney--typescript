@@ -1,0 +1,13 @@
+.dropdown {
+  position: absolute;
+  background: rgb(102, 93, 184);
+  color: white;
+  bottom: -25px;
+  left: 0;
+}
+
+.dropdown button {
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  border-radius: 10px;
+}

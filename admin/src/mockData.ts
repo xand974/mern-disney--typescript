@@ -134,7 +134,7 @@ export const users: UserAdminType[] = [
     fullName: "Alexandre Malet",
   },
   {
-    _id: "1",
+    _id: "10",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,
@@ -143,7 +143,7 @@ export const users: UserAdminType[] = [
     fullName: "Alexandre Malet",
   },
   {
-    _id: "1",
+    _id: "11",
     username: "Cersei",
     email: "Cersei@gmail.com",
     isAdmin: true,

@@ -20,7 +20,7 @@ export default function UserList() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 200 },
+    { field: "_id", headerName: "ID", width: 200 },
     {
       field: "user",
       headerName: "User",
@@ -82,7 +82,7 @@ export default function UserList() {
         rowsPerPageOptions={[5]}
         checkboxSelection
         disableSelectionOnClick
-        getRowId={(row) => row.id}
+        getRowId={(row) => row._id}
       />
     </div>
   );

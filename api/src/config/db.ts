@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 mongoose
-  .connect("mongodb://localhost:27017/DisneyDB")
+  .connect(process.env.DB_URL ?? "")
   .then(() => {
     console.log("db is connected");
   })

@@ -14,34 +14,33 @@ export type CredentialType = {
 
 export const login = async (
   credential: CredentialType,
-  dispatch: AppDispatch,
-  navigate: any
-): Promise<void> => {
+  dispatch: AppDispatch
+): Promise<{ data: string }> => {
   dispatch(loginStart());
   try {
     const res = await publicRequest.post("/auth/login", credential);
     dispatch(loginSuccess(res.data));
     localStorage.setItem("user", JSON.stringify(res.data));
-    navigate({ to: "/" });
+    return {
+      data: "success",
+    };
   } catch (error) {
     dispatch(loginFailure());
+    return {
+      data: "error",
+    };
   }
 };
 
-export const register = async (
-  credential: CredentialType,
-  navigate: any
-): Promise<void> => {
+export const signUp = async (credential: CredentialType): Promise<void> => {
   try {
     await publicRequest.post("/auth/register", credential);
-    navigate({ to: "/login" });
   } catch (error) {
-    console.log(error);
+    throw new Error("cannot sign up");
   }
 };
 
-export const logout = async (dispatch: AppDispatch) => {
+export const signOut = async (dispatch: AppDispatch) => {
   localStorage.clear();
   dispatch(logoutUser());
-  window.location.reload();
 };

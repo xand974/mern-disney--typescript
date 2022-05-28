@@ -1,7 +1,35 @@
 import "./log.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ChangeEvent, useState } from "react";
+import { UserModel } from "../../types/types";
+import { signUp } from "../../api/auth";
 
 export default function Register() {
+  const [credential, setCredential] = useState({} as UserModel);
+  const [loading, setLoading] = useState(false);
+  const navigation = useNavigate();
+  const register = async () => {
+    try {
+      setLoading(true);
+      await signUp(credential);
+      navigation("/login");
+      setLoading(false);
+      return;
+    } catch (err) {
+      setLoading(false);
+      return;
+    }
+  };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCredential((prev) => {
+      const name = e.target.name;
+      const value = e.target.value;
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
   return (
     <div className="log log--register">
       <div className="card__container">
@@ -15,6 +43,8 @@ export default function Register() {
                 USERNAME
               </label>
               <input
+                required
+                onChange={handleChange}
                 type="text"
                 className="card__form--input"
                 name="username"
@@ -25,6 +55,7 @@ export default function Register() {
                 Fullname
               </label>
               <input
+                onChange={handleChange}
                 type="text"
                 className="card__form--input"
                 name="fullName"
@@ -34,21 +65,31 @@ export default function Register() {
               <label htmlFor="email" className="card__form--label">
                 Email
               </label>
-              <input type="email" className="card__form--input" name="email" />
+              <input
+                required
+                type="email"
+                onChange={handleChange}
+                className="card__form--input"
+                name="email"
+              />
             </div>
             <div className="card__form">
               <label htmlFor="password" className="card__form--label">
                 PASSWORD
               </label>
               <input
+                required
+                onChange={handleChange}
                 type="password"
                 className="card__form--input"
                 name="password"
               />
             </div>
             <div className="card__form">
-              <button className="card__form--btn">
-                <span className="card__form--btn-text">SE CONNECTER</span>
+              <button className="card__form--btn" onClick={() => register()}>
+                <span className="card__form--btn-text">
+                  {loading ? "loading" : " Créer un compte"}
+                </span>
               </button>
             </div>
           </form>

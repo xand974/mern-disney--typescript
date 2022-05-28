@@ -23,8 +23,9 @@ export default function Login() {
     });
   };
 
-  const handleClick = () => {
-    login(credential, dispatch, navigate);
+  const handleClick = async () => {
+    const res = await login(credential, dispatch);
+    if (res.data === "success") navigate("/");
   };
 
   return (

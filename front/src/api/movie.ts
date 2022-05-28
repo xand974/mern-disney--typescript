@@ -6,7 +6,7 @@ export const getSliderItem = async (setSliderItem: SetStateAction<any>) => {
     const res = await privateRequest.get("/movies/slider");
     setSliderItem(res.data);
   } catch (error) {
-    alert(error);
+    throw new Error("cannot get slider movies");
   }
 };
 
@@ -28,7 +28,9 @@ export const getMovie = async (
       const res = await privateRequest.get(`/movies/one/${pathname}`);
       setMovie(res.data);
     }
-  } catch (error) {}
+  } catch (error) {
+    throw new Error("cannot get movie");
+  }
 };
 
 export const getMoviesByCat = async (
@@ -39,6 +41,6 @@ export const getMoviesByCat = async (
     const res = await privateRequest.get("/movies/cat?cat__query=" + cat);
     setMovies(res.data);
   } catch (error) {
-    alert(error);
+    throw new Error("cannot get movies");
   }
 };

@@ -2,11 +2,18 @@ import { Add, Home, Search, Star, Movie, Tv } from "@mui/icons-material";
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Dropdown from "../dropdown/Dropdown";
 import "./navbar.css";
+import { signOut } from "../../api/auth";
+import { useDispatch } from "react-redux";
 export default function Navbar() {
   const container = useRef<HTMLDivElement>(null);
   const [isScroll, setIsScroll] = useState(false);
+  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
   useEffect(() => {
     function handleNav() {
       setIsScroll(window.scrollY > 200 ? true : false);
@@ -16,6 +23,16 @@ export default function Navbar() {
     });
     return window.removeEventListener("scroll", handleNav);
   }, []);
+
+  const logout = () => {
+    signOut(dispatch);
+    navigate("/login");
+  };
+
+  const toggle = () => {
+    setShow((prev) => (prev = !prev));
+  };
+
   return (
     <nav
       className="nav"
@@ -72,7 +89,7 @@ export default function Navbar() {
             </Link>
           </ul>
         </div>
-        <div className="nav__profile">
+        <div className="nav__profile" onClick={() => toggle()}>
           <span className="nav__profile-text">Maletto</span>
           <div className="nav__profile-img-container">
             <img
@@ -83,6 +100,7 @@ export default function Navbar() {
               className="nav__profile--img"
             />
           </div>
+          {show ? <Dropdown logout={logout} /> : <></>}
         </div>
       </div>
     </nav>

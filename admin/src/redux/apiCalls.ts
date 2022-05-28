@@ -62,7 +62,7 @@ export const login = async (
         history.push("/");
       }
     } else {
-      alert("you are not admin");
+      throw new Error("something went wrong");
     }
   } catch (err) {
     dispatch(loginFailure());
@@ -127,7 +127,7 @@ export const deleteUser = async (id: string) => {
     await privateRequest.delete("/users/" + id);
     window.location.reload();
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -187,7 +187,7 @@ export const updateUser = async (
     await privateRequest.put("/users/" + user._id, userInput);
     history.push("/users");
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -197,6 +197,6 @@ export const createUser = async (history: any) => {
 
     history.push("/users");
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
